@@ -8,11 +8,13 @@ import java.util.Stack;
 public class StackCalc {
 
 	private BufferedReader reader;
+	private PrintStream printStream;
 	private Map<String, Command> commands = new HashMap<>();
 	private Map<String, Double> context = new HashMap<>();
 
-	public StackCalc(BufferedReader reader) {
+	public StackCalc(BufferedReader reader, PrintStream printStream) {
 		this.reader = reader;
+		this.printStream = printStream;
 
 		registerCommand(new DivCommand());
 		registerCommand(new MulCommand());
@@ -22,7 +24,7 @@ public class StackCalc {
 		registerCommand(new PopCommand());
 		registerCommand(new DefineCommand(context));
 		registerCommand(new PushCommand(context));
-		registerCommand(new PrintCommand());
+		registerCommand(new PrintCommand(printStream));
 		registerCommand(new HelpCommand(commands));
 	}
 
@@ -37,19 +39,25 @@ public class StackCalc {
 			else
 				reader = new BufferedReader(new InputStreamReader(System.in));
 
-			new StackCalc(reader).process();
+			new StackCalc(reader, System.out).evaluate();
 		} catch (FileNotFoundException e) {
-			System.err.printf("File '%s' not found!\n", args[0]);
-		} catch (IOException e) {
-			System.err.printf("IOException: " + e.toString());
-		} catch (RuntimeException e) {
-			System.err.println("Runtime exception: " + e);
+			System.err.printf("FileNotFoundException: " + e.toString());
 		}
 	}
 
 	private static void printUsage() {
 		System.out.println("Stack calculator. Reads commands from provided file and print result.");
 		System.out.println("Use HELP for list of available commands");
+	}
+
+	public void evaluate() {
+		try {
+			process();
+		} catch (IOException e) {
+			System.err.printf("IOException: " + e.toString());
+		} catch (RuntimeException e) {
+			System.err.println("Runtime exception: " + e.toString());
+		}
 	}
 
 	private void process() throws IOException {
