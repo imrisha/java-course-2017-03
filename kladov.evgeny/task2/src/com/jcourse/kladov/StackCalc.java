@@ -25,7 +25,7 @@ public class StackCalc {
 		registerCommand(new DefineCommand(context));
 		registerCommand(new PushCommand(context));
 		registerCommand(new PrintCommand(printStream));
-		registerCommand(new HelpCommand(commands));
+		registerCommand(new HelpCommand(commands, printStream));
 	}
 
 	public static void main(String[] args) {
