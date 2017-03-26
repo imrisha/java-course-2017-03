@@ -35,6 +35,14 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>StackCalc</groupId>
+			<artifactId>com.jcourse</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>C:/Users/Eugene/IdeaProjects/java-course-2017-03/kladov.evgeny/task2/out/artifacts/StackCalc/StackCalc.jar</systemPath>
+		</dependency>
 	</dependencies>
 
 	<build>
