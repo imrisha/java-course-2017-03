@@ -67,6 +67,9 @@ public class StackCalc {
 
 		for (boolean eof = false; !eof; ) {
 			tokenizer.wordChars('-', '-');
+			tokenizer.wordChars('+', '+');
+			tokenizer.wordChars('/', '/');
+			tokenizer.wordChars('*', '*');
 			Command cmd = null;
 
 			switch (tokenizer.nextToken()) {
@@ -94,6 +97,8 @@ public class StackCalc {
 					cmd = commands.get("/");
 					break;
 			}
+			if (eof)
+				break;
 			if (cmd == null) {
 				throw new RuntimeException("Unknown command: " + tokenizer.sval);
 			}
